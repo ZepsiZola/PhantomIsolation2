@@ -8,6 +8,8 @@ commands:
     usage: /<command> [check|disable|enable]
     aliases:
       - pil
+      - phantom
+      - phantoms
   phantomisolationreload:
     usage: /<command>
     aliases:

@@ -1,4 +1,6 @@
 # PhantomIsolation2 Configuration
+#
+# Clarification: "Enabling" phantom isolation means you're enabling phantoms.
 
 # PhantomIsolation command messages
 phantomisolation-command:
