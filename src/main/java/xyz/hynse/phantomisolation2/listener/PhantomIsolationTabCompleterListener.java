@@ -16,7 +16,7 @@ public class PhantomIsolationTabCompleterListener implements TabCompleter {
             MiscUtil.sendMessage(sender, MiscUtil.phantomisolationMessageNoPermission);
             return Collections.emptyList();
         }
-        if (command.getName().equalsIgnoreCase("phantomisolation") || command.getName().equalsIgnoreCase("pli")) {
+        if (command.getName().equalsIgnoreCase("phantomisolation") || command.getName().equalsIgnoreCase("pil")) {
             if (args.length == 1) {
                 List<String> subcommands = new ArrayList<>();
                 subcommands.add("check");
@@ -24,6 +24,7 @@ public class PhantomIsolationTabCompleterListener implements TabCompleter {
                 subcommands.add("enable");
                 subcommands.add("on");
                 subcommands.add("off");
+                subcommands.add("toggle");
                 subcommands.add("status");
 
                 return subcommands;

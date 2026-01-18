@@ -1,12 +1,14 @@
 package xyz.hynse.phantomisolation2.util;
 
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import xyz.hynse.phantomisolation2.PhantomIsolation2;
 
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MiscUtil implements Listener {
     private static final PhantomIsolation2 instance = PhantomIsolation2.instance;
@@ -79,7 +81,27 @@ public class MiscUtil implements Listener {
     }
     public static void sendMessage(CommandSender sender, String message) {
         if (message != null) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+            sender.sendMessage(translateColorCodes(message));
         }
+    }
+
+    /**
+     * Translates color codes including RGB hex colors
+     * Supports formats: &#RRGGBB, &x&R&R&G&G&B&B, and legacy &[0-9a-fk-or]
+     */
+    private static String translateColorCodes(String message) {
+        // Pattern for &#RRGGBB format
+        Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
+        Matcher matcher = hexPattern.matcher(message);
+        StringBuffer buffer = new StringBuffer(message.length());
+        
+        while (matcher.find()) {
+            String hexCode = matcher.group(1);
+            matcher.appendReplacement(buffer, ChatColor.of("#" + hexCode).toString());
+        }
+        matcher.appendTail(buffer);
+        
+        // Translate legacy color codes
+        return ChatColor.translateAlternateColorCodes('&', buffer.toString());
     }
 }
