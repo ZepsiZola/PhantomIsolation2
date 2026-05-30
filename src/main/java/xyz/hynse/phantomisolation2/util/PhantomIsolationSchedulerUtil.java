@@ -29,7 +29,10 @@ public class PhantomIsolationSchedulerUtil {
         if (isFolia()) {
             Bukkit.getAsyncScheduler().runAtFixedRate(plugin, task -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    playerTask.accept(player);
+                    // Execute on the player's owning region thread so setStatistic() etc. are thread-safe
+                    player.getScheduler().run(plugin, scheduledTask -> {
+                        playerTask.accept(player);
+                    }, null);
                 }
             }, initialDelayTicks, periodTicks, TimeUnit.SECONDS);
         } else {
