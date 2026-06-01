@@ -40,18 +40,18 @@ public class PhantomIsolationCommand implements CommandExecutor {
                     MiscUtil.sendMessage(sender, message);
                 }
                 case "enable", "on" -> {
-                    databaseUtil.setPlayerIsolationStatus(player, true);
+                    databaseUtil.setPlayerIsolationStatus(player, false);
                     MiscUtil.sendMessage(sender, MiscUtil.phantomisolationMessageEnabled);
                 }
                 case "disable", "off" -> {
-                    databaseUtil.setPlayerIsolationStatus(player, false);
+                    databaseUtil.setPlayerIsolationStatus(player, true);
                     MiscUtil.sendMessage(sender, MiscUtil.phantomisolationMessageDisable);
                 }
                 case "toggle" -> {
                     boolean currentStatus = databaseUtil.getPlayerIsolationStatus(player);
                     boolean newStatus = !currentStatus;
                     databaseUtil.setPlayerIsolationStatus(player, newStatus);
-                    String message = newStatus ? MiscUtil.phantomisolationMessageEnabled : MiscUtil.phantomisolationMessageDisable;
+                    String message = newStatus ? MiscUtil.phantomisolationMessageDisable : MiscUtil.phantomisolationMessageEnabled;
                     MiscUtil.sendMessage(sender, message);
                 }
                 default -> MiscUtil.sendMessage(sender, MiscUtil.phantomisolationMessageUsage);
